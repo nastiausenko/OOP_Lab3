@@ -1,11 +1,15 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import shape_editor.ShapeObjectsEditor;
+
+import java.util.Objects;
 
 public class Lab3 extends Application {
     @Override
@@ -33,38 +37,43 @@ public class Lab3 extends Application {
         shapes.getItems().addAll(point, line, ellipse, rectangle);
 
         ToolBar toolBar = new ToolBar();
-        Button btnPoint = new Button("Point");
-        Button btnLine = new Button("Line");
-        Button btnEllipse = new Button("Ellipse");
-        Button btnRectangle = new Button("Rectangle");
+        Button btnPoint = createToolbarButton("images/point.png", "Point");
+        Button btnLine = createToolbarButton("images/line.png", "Line");
+        Button btnEllipse = createToolbarButton("images/ellipse.png", "Ellipse");
+        Button btnRectangle = createToolbarButton("images/rectangle.png", "Rectangle");
 
         toolBar.getItems().addAll(btnPoint, btnLine, btnEllipse, btnRectangle);
 
         VBox menuAndToolbar = new VBox(menuBar, toolBar);
         layout.setTop(menuAndToolbar);
 
-        rectangle.setOnAction(actionEvent -> {
-            shapeEditor.startRectangleEditor(scene, drawingArea);
-            stage.setTitle("Rectangle");
-        });
-        line.setOnAction(actionEvent -> {
-            shapeEditor.startLineEditor(scene, drawingArea);
-            stage.setTitle("Line");
-        });
-        point.setOnAction(actionEvent -> {
-            shapeEditor.startPointEditor(scene, drawingArea);
-            stage.setTitle("Point");
-        });
-        ellipse.setOnAction(actionEvent -> {
-            shapeEditor.startEllipseEditor(scene, drawingArea);
-            stage.setTitle("Ellipse");
-        });
+        rectangle.setOnAction(actionEvent -> shapeEditor.startRectangleEditor(scene, drawingArea));
+        line.setOnAction(actionEvent -> shapeEditor.startLineEditor(scene, drawingArea));
+        point.setOnAction(actionEvent -> shapeEditor.startPointEditor(scene, drawingArea));
+        ellipse.setOnAction(actionEvent -> shapeEditor.startEllipseEditor(scene, drawingArea));
+
+        btnRectangle.setOnAction(actionEvent -> shapeEditor.startRectangleEditor(scene, drawingArea));
+        btnLine.setOnAction(actionEvent -> shapeEditor.startLineEditor(scene, drawingArea));
+        btnPoint.setOnAction(actionEvent -> shapeEditor.startPointEditor(scene, drawingArea));
+        btnEllipse.setOnAction(actionEvent -> shapeEditor.startEllipseEditor(scene, drawingArea));
 
         stage.setScene(scene);
         stage.setTitle("Lab2");
         stage.show();
     }
 
+    private Button createToolbarButton(String imagePath, String tooltipText) {
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+        ImageView imageView = new ImageView(image);
+
+        Button button = new Button();
+        button.setGraphic(imageView);
+
+        Tooltip tooltip = new Tooltip(tooltipText);
+        Tooltip.install(button, tooltip);
+
+        return button;
+    }
 
     public static void main(String[] args) {
         launch();
