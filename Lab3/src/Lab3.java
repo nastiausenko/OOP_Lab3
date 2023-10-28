@@ -29,10 +29,10 @@ public class Lab3 extends Application {
 
         menuBar.getMenus().addAll(file, shapes, help);
 
-        MenuItem point = new MenuItem("Point");
-        MenuItem line = new MenuItem("Line");
-        MenuItem ellipse = new MenuItem("Ellipse");
-        MenuItem rectangle = new MenuItem("Rectangle");
+        CheckMenuItem point = new CheckMenuItem("Point");
+        CheckMenuItem line = new CheckMenuItem("Line");
+        CheckMenuItem ellipse = new CheckMenuItem("Ellipse");
+        CheckMenuItem rectangle = new CheckMenuItem("Rectangle");
 
         shapes.getItems().addAll(point, line, ellipse, rectangle);
 
@@ -47,10 +47,30 @@ public class Lab3 extends Application {
         VBox menuAndToolbar = new VBox(menuBar, toolBar);
         layout.setTop(menuAndToolbar);
 
-        rectangle.setOnAction(actionEvent -> shapeEditor.startRectangleEditor(scene, drawingArea));
-        line.setOnAction(actionEvent -> shapeEditor.startLineEditor(scene, drawingArea));
-        point.setOnAction(actionEvent -> shapeEditor.startPointEditor(scene, drawingArea));
-        ellipse.setOnAction(actionEvent -> shapeEditor.startEllipseEditor(scene, drawingArea));
+        rectangle.setOnAction(actionEvent -> {
+            shapeEditor.startRectangleEditor(scene, drawingArea);
+            point.setSelected(false);
+            ellipse.setSelected(false);
+            line.setSelected(false);
+        });
+        line.setOnAction(actionEvent -> {
+            shapeEditor.startLineEditor(scene, drawingArea);
+            point.setSelected(false);
+            ellipse.setSelected(false);
+            rectangle.setSelected(false);
+        });
+        point.setOnAction(actionEvent -> {
+            shapeEditor.startPointEditor(scene, drawingArea);
+            rectangle.setSelected(false);
+            ellipse.setSelected(false);
+            line.setSelected(false);
+        });
+        ellipse.setOnAction(actionEvent ->{
+            shapeEditor.startEllipseEditor(scene, drawingArea);
+            point.setSelected(false);
+            rectangle.setSelected(false);
+            line.setSelected(false);
+        });
 
         btnRectangle.setOnAction(actionEvent -> shapeEditor.startRectangleEditor(scene, drawingArea));
         btnLine.setOnAction(actionEvent -> shapeEditor.startLineEditor(scene, drawingArea));
