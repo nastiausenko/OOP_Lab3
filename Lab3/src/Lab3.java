@@ -49,27 +49,19 @@ public class Lab3 extends Application {
 
         rectangle.setOnAction(actionEvent -> {
             shapeEditor.startRectangleEditor(scene, drawingArea);
-            point.setSelected(false);
-            ellipse.setSelected(false);
-            line.setSelected(false);
+            selection(rectangle, point, ellipse, line);
         });
         line.setOnAction(actionEvent -> {
             shapeEditor.startLineEditor(scene, drawingArea);
-            point.setSelected(false);
-            ellipse.setSelected(false);
-            rectangle.setSelected(false);
+            selection(line, point, ellipse, rectangle);
         });
         point.setOnAction(actionEvent -> {
             shapeEditor.startPointEditor(scene, drawingArea);
-            rectangle.setSelected(false);
-            ellipse.setSelected(false);
-            line.setSelected(false);
+            selection(point, line, ellipse, rectangle);
         });
         ellipse.setOnAction(actionEvent ->{
             shapeEditor.startEllipseEditor(scene, drawingArea);
-            point.setSelected(false);
-            rectangle.setSelected(false);
-            line.setSelected(false);
+            selection(ellipse, line, point, rectangle);
         });
 
         btnRectangle.setOnAction(actionEvent -> shapeEditor.startRectangleEditor(scene, drawingArea));
@@ -80,6 +72,13 @@ public class Lab3 extends Application {
         stage.setScene(scene);
         stage.setTitle("Lab2");
         stage.show();
+    }
+
+    private void selection(CheckMenuItem selectedItem, CheckMenuItem... others) {
+        selectedItem.setSelected(true);
+        for (CheckMenuItem item : others) {
+            item.setSelected(false);
+        }
     }
 
     private Button createToolbarButton(String imagePath, String tooltipText) {
