@@ -70,7 +70,7 @@ public class Lab3 extends Application {
         btnEllipse.setOnAction(actionEvent -> shapeEditor.startEllipseEditor(scene, drawingArea));
 
         stage.setScene(scene);
-        stage.setTitle("Lab2");
+        stage.setTitle("Lab3");
         stage.show();
     }
 
